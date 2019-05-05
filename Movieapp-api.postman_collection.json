@@ -23,7 +23,7 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "john",
+							"value": "admin",
 							"type": "text"
 						},
 						{
@@ -34,12 +34,13 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:3000/getAuthorize",
-					"protocol": "http",
+					"raw": "https://movieapp-api.herokuapp.com/getAuthorize",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"movieapp-api",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"getAuthorize"
 					]
@@ -126,7 +127,7 @@
 					"urlencoded": [
 						{
 							"key": "accessToken",
-							"value": "345e4b7c963d36baa24d4a92a2f2ff0c",
+							"value": "f25ec87fe99565cc6a62bae8ff567e93",
 							"type": "text"
 						},
 						{
@@ -136,7 +137,7 @@
 						},
 						{
 							"key": "genre",
-							"value": "[ \"Horror\", \" Mystery\", \" Thriller\" ]",
+							"value": "Horror,Mystery,Thriller",
 							"type": "text"
 						},
 						{
@@ -156,18 +157,19 @@
 						},
 						{
 							"key": "name",
-							"value": "Psycho2",
+							"value": "Psycho",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:3000/movie/update",
-					"protocol": "http",
+					"raw": "https://movieapp-api.herokuapp.com/movie/update",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"movieapp-api",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"movie",
 						"update"
@@ -193,18 +195,19 @@
 					"urlencoded": [
 						{
 							"key": "accessToken",
-							"value": "345e4b7c963d36baa24d4a92a2f2ff0c",
+							"value": "1834fc6dab2a037de92b3b082660a8d0",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:3000/movie/view",
-					"protocol": "http",
+					"raw": "https://movieapp-api.herokuapp.com/movie/view",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"movieapp-api",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"movie",
 						"view"
@@ -230,7 +233,7 @@
 					"urlencoded": [
 						{
 							"key": "accessToken",
-							"value": "c9db7d5b1120aacb41ca2722f5ca004c",
+							"value": "b6179a8185cdfefbd4f9e88e45f4db17",
 							"type": "text"
 						},
 						{
@@ -240,21 +243,22 @@
 						},
 						{
 							"key": "username",
-							"value": "john",
+							"value": "ron",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:3000/admin/assignMovies",
-					"protocol": "http",
+					"raw": "https://movieapp-api.herokuapp.com/admin/assignMovie",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"movieapp-api",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"admin",
-						"assignMovies"
+						"assignMovie"
 					]
 				}
 			},
@@ -293,12 +297,13 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:3000/admin/changeUserRole",
-					"protocol": "http",
+					"raw": "https://movieapp-api.herokuapp.com/admin/changeUserRole",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"movieapp-api",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"admin",
 						"changeUserRole"
@@ -319,14 +324,29 @@
 						"type": "text"
 					}
 				],
-				"body": {},
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "accessToken",
+							"value": "10e6ab3b18367f7ee9ccd7d5c30b9fdf",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "5ccdd46c2e6fa3f3105c3859",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": "http://localhost:3000/movie/delete",
-					"protocol": "http",
+					"raw": "https://movieapp-api.herokuapp.com/movie/delete",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"movieapp-api",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"movie",
 						"delete"
@@ -352,7 +372,7 @@
 					"urlencoded": [
 						{
 							"key": "accessToken",
-							"value": "93e45b0b23951a082a5ee5d43492e15d",
+							"value": "b6179a8185cdfefbd4f9e88e45f4db17",
 							"type": "text"
 						},
 						{
@@ -368,12 +388,13 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:3000/admin/unassignMovie",
-					"protocol": "http",
+					"raw": "https://movieapp-api.herokuapp.com/admin/unassignMovie",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"movieapp-api",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"admin",
 						"unassignMovie"
@@ -405,12 +426,13 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:3000/admin/allUsers",
-					"protocol": "http",
+					"raw": "https://movieapp-api.herokuapp.com/admin/allUsers",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"movieapp-api",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"admin",
 						"allUsers"
