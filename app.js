@@ -84,6 +84,11 @@ app.post('/getAuthorize', (req, res) => {
 });
 
 app.use('/movie', (req, res, next) => {
+    if(!req.body.accessToken){
+        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Please Send AccessToken"}));
+        return;
+    }
+
     // check here groups and permissions
    if(req.session.token && req.session.token == req.body.accessToken){
         if(req.session.group=="Admin"){
@@ -190,6 +195,12 @@ app.post('/movie/update', (req, res) => {
 });
 
 app.post('/movie/delete', (req, res) => {
+    if(!req.body.id){
+        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Please Send movie id"}));
+        return;
+    }
+
+
     movies
         .updateOne({ _id: req.body.id }, { isDeleted: true})
         .then(data => {
@@ -232,6 +243,11 @@ app.post('/movie/view', (req, res) => {
 });
 
 app.use('/admin', (req, res, next) => {
+    if(!req.body.accessToken){
+        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Please Send AccessToken"}));
+        return;
+    }
+
     // checking if it's admin
     if(req.session.token && req.session.token == req.body.accessToken){
         if(req.session.group=="Admin"){    
@@ -248,6 +264,15 @@ app.use('/admin', (req, res, next) => {
 });
 
 app.post('/admin/changeUserRole', (req, res) => {
+
+    if(!req.body.username){
+        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Username parameter is missing"}));
+        return;
+    }
+    else if(!req.body.group){
+        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Group paramter is missing"}));
+        return;
+    }
 
     if(groupPermissions[req.body.group]){
         users
@@ -278,6 +303,16 @@ app.post('/admin/changeUserRole', (req, res) => {
 });
 
 app.post('/admin/assignMovie', (req, res) => {
+    if(!req.body.username){
+        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Username parameter is missing"}));
+        return;
+    }
+    else if(!req.body.id){
+        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Please Send movie id"}));
+        return;
+    }
+
+
     movies
         .find({users: req.body.username})
         .exec()
@@ -314,6 +349,15 @@ app.post('/admin/assignMovie', (req, res) => {
 });
 
 app.post('/admin/unassignMovie', (req, res) => {
+    if(!req.body.username){
+        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Username parameter is missing"}));
+        return;
+    }
+    else if(!req.body.id){
+        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Please Send movie id"}));
+        return;
+    }
+    
     movies
         .find({users: req.body.username})
         .exec()
