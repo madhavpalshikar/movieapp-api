@@ -1,0 +1,30 @@
+{
+  "name": "movieapp-api",
+  "version": "1.0.0",
+  "description": "Movies App REST api",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madhavwrite/movieapp-api.git"
+  },
+  "keywords": [
+    "Movie",
+    "app"
+  ],
+  "author": "Madhav Palshikar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/madhavwrite/movieapp-api/issues"
+  },
+  "homepage": "https://github.com/madhavwrite/movieapp-api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "md5": "^2.2.1",
+    "mongoose": "^5.5.5"
+  }
+}

@@ -1,0 +1,423 @@
+{
+	"info": {
+		"_postman_id": "c81035a1-2201-4d8f-8de5-02b29999ff07",
+		"name": "Movieapp-api",
+		"description": "REST apis for movies",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAuthorize",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "john",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/getAuthorize",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"getAuthorize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Movie",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "accessToken",
+							"value": "f61a91b7686d36a8a1fc0949ca848433",
+							"type": "text"
+						},
+						{
+							"key": "genre",
+							"value": "Horror,Mystery,Thriller",
+							"type": "text"
+						},
+						{
+							"key": "99popularity",
+							"value": "90",
+							"type": "text"
+						},
+						{
+							"key": "director",
+							"value": "Alfred Hitchcock1",
+							"type": "text"
+						},
+						{
+							"key": "imdb_score",
+							"value": "9.0",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Psycho",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/movie/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movie",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Movie",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "accessToken",
+							"value": "345e4b7c963d36baa24d4a92a2f2ff0c",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "5ccdd46c2e6fa3f3105c3859",
+							"type": "text"
+						},
+						{
+							"key": "genre",
+							"value": "[ \"Horror\", \" Mystery\", \" Thriller\" ]",
+							"type": "text"
+						},
+						{
+							"key": "99popularity",
+							"value": "90",
+							"type": "text"
+						},
+						{
+							"key": "director",
+							"value": "Alfred Hitchcock1",
+							"type": "text"
+						},
+						{
+							"key": "imdb_score",
+							"value": "9.0",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Psycho2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/movie/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movie",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Movies",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "accessToken",
+							"value": "345e4b7c963d36baa24d4a92a2f2ff0c",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/movie/view",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movie",
+						"view"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign MovieTo User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "accessToken",
+							"value": "c9db7d5b1120aacb41ca2722f5ca004c",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "5ccdd46c2e6fa3f3105c3859",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "john",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/admin/assignMovies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admin",
+						"assignMovies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change User Group",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "accessToken",
+							"value": "4bdae832e3cf5942b54ac193492106b3",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "john",
+							"type": "text"
+						},
+						{
+							"key": "group",
+							"value": "Moderator",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/admin/changeUserRole",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admin",
+						"changeUserRole"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Movie",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3000/movie/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movie",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unassign Movie To user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "accessToken",
+							"value": "93e45b0b23951a082a5ee5d43492e15d",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "5ccdd46c2e6fa3f3105c3859",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "ron",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/admin/unassignMovie",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admin",
+						"unassignMovie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "accessToken",
+							"value": "a5031a2e71f34f101df40a21160e44fb",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/admin/allUsers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"admin",
+						"allUsers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
