@@ -248,7 +248,7 @@ app.post('/movie/view', (req, res) => {
     else
     {
         movies
-        .find({users: req.session.username, isDeleted: false})
+        .find({users: req.session.username, isDeleted: {$in: [null, false]}})
         .select(["genre","_id","99popularity","director","imdb_score","name"])
         .exec()
         .then(data => {
