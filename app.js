@@ -51,7 +51,9 @@ app.get('/', (req, res) => {
 });
 
 app.post('/getAuthorize', (req, res) => {
-    users
+
+    if(req.body.username && req.body.password){
+        users
         .find()
         .where("username").equals(req.body.username)
         .where("password").equals(md5(req.body.password))
@@ -72,6 +74,12 @@ app.post('/getAuthorize', (req, res) => {
         .catch(function(err){
             res.send(JSON.stringify({status: 400, message: 'Error', error: err}));
         })
+    }
+    else
+    {
+        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Please send required parameters."}));
+    }
+
     
 });
 
