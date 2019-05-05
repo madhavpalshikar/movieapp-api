@@ -46,6 +46,44 @@ app.use(session({
     saveUninitialized: true
 }));
 
+let checkUserExists = (username) => {
+    users
+    .find({username: username})
+    .exec()
+    .then(rec => {
+        if(rec.length > 0){
+            return true;
+        }
+        else
+        {
+           return false;
+        }
+    })
+    .catch(function(err){
+        return false;
+    })
+}
+
+let checkMovieExists = (movieID) => {
+    movies
+    .find({_id: movieID})
+    .exec()
+    .then(rec => {
+        if(rec.length > 0){
+            return true;
+        }
+        else
+        {
+           return false;
+        }
+    })
+    .catch(function(err){
+        return false;
+    })
+}
+
+
+
 app.get('/', (req, res) => {
     res.send('Welcome to Movieapp-api');
 });
@@ -196,7 +234,7 @@ app.post('/movie/update', (req, res) => {
 
 app.post('/movie/delete', (req, res) => {
     if(!req.body.id){
-        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Please Send movie id"}));
+        res.send(JSON.stringify({status:400, message: "Please Send movie id"}));
         return;
     }
 
@@ -266,11 +304,11 @@ app.use('/admin', (req, res, next) => {
 app.post('/admin/changeUserRole', (req, res) => {
 
     if(!req.body.username){
-        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Username parameter is missing"}));
+        res.send(JSON.stringify({status:400, message: "Username parameter is missing"}));
         return;
     }
     else if(!req.body.group){
-        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Group paramter is missing"}));
+        res.send(JSON.stringify({status:400, message: "Group paramter is missing"}));
         return;
     }
 
@@ -304,14 +342,22 @@ app.post('/admin/changeUserRole', (req, res) => {
 
 app.post('/admin/assignMovie', (req, res) => {
     if(!req.body.username){
-        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Username parameter is missing"}));
+        res.send(JSON.stringify({status:400, message: "Username parameter is missing"}));
         return;
     }
     else if(!req.body.id){
-        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Please Send movie id"}));
+        res.send(JSON.stringify({status:400, message: "Please Send movie id"}));
         return;
     }
 
+    if(!checkUserExists(req.body.username)){
+        res.send(JSON.stringify({status:400, message: "User Not found"}));
+        return;
+    }
+    else if(!checkMovieExists(req.body.id)){
+        res.send(JSON.stringify({status:400, message: "Movie Not found"}));
+        return;
+    }
 
     movies
         .find({_id: req.body.id, users: req.body.username})
@@ -350,11 +396,20 @@ app.post('/admin/assignMovie', (req, res) => {
 
 app.post('/admin/unassignMovie', (req, res) => {
     if(!req.body.username){
-        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Username parameter is missing"}));
+        res.send(JSON.stringify({status:400, message: "Username parameter is missing"}));
         return;
     }
     else if(!req.body.id){
-        res.send(JSON.stringify({status:400, isAuthorized: false, message: "Please Send movie id"}));
+        res.send(JSON.stringify({status:400, message: "Please Send movie id"}));
+        return;
+    }
+    
+    if(!checkUserExists(req.body.username)){
+        res.send(JSON.stringify({status:400, message: "User Not found"}));
+        return;
+    }
+    else if(!checkMovieExists(req.body.id)){
+        res.send(JSON.stringify({status:400, message: "Movie Not found"}));
         return;
     }
 
