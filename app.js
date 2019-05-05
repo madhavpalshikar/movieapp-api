@@ -314,7 +314,7 @@ app.post('/admin/assignMovie', (req, res) => {
 
 
     movies
-        .find({users: req.body.username})
+        .find({_id: req.body.id, users: req.body.username})
         .exec()
         .then(rec => {
             if(rec.length > 0){
@@ -357,9 +357,9 @@ app.post('/admin/unassignMovie', (req, res) => {
         res.send(JSON.stringify({status:400, isAuthorized: false, message: "Please Send movie id"}));
         return;
     }
-    
+
     movies
-        .find({users: req.body.username})
+        .find({_id: req.body.id, users: req.body.username})
         .exec()
         .then(rec => {
             if(rec.length > 0){
