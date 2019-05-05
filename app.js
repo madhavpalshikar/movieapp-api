@@ -398,7 +398,10 @@ app.post('/admin/assignMovie', (req, res) => {
                 res.send(JSON.stringify({status: 400, message: 'Error', error: err}));
             })
         }
-    });
+    })
+    .catch(function (err) {
+        console.log("Promise Rejected ", err);
+   });
 });
 
 app.post('/admin/unassignMovie', (req, res) => {
@@ -442,7 +445,10 @@ app.post('/admin/unassignMovie', (req, res) => {
                 })
         }
         
-    });
+    })
+    .catch(function (err) {
+        console.log("Promise Rejected ", err);
+   });
 });
 
 app.post('/admin/allUsers', (req, res) => {
