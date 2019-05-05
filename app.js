@@ -363,7 +363,12 @@ app.post('/admin/assignMovie', (req, res) => {
             res.send(JSON.stringify({status:400, message: "Wrong Movie ID"}));
             return;
         }
-        else{
+    })
+    .catch(function (err) {
+        console.log("Promise Rejected ", err);
+        return;
+   });
+
             movies
             .find({_id: req.body.id, users: req.body.username})
             .exec()
@@ -397,11 +402,7 @@ app.post('/admin/assignMovie', (req, res) => {
             .catch(function(err){
                 res.send(JSON.stringify({status: 400, message: 'Error', error: err}));
             })
-        }
-    })
-    .catch(function (err) {
-        console.log("Promise Rejected ", err);
-   });
+        
 });
 
 app.post('/admin/unassignMovie', (req, res) => {
