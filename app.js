@@ -339,10 +339,10 @@ app.post('/admin/allUsers', (req, res) => {
 
 });
 
-app.listen(80, (err)=>{
+app.listen(3000, (err)=>{
     if(err){
         console.log('Error:', err);
         return;
     }
-    console.log('Movieapp-api running on port 80');
+    console.log('Movieapp-api running on port 3000');
 });
