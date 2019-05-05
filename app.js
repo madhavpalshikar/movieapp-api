@@ -66,27 +66,6 @@ let checkUserExists = (username) => {
     });
 };
 
-let checkMovieExists = (movieID) => { 
-    
-    return new Promise((resolve, reject) => {
-        movies
-        .find({_id: movieID})
-        .exec()
-        .then(rec => {
-            if(rec.length > 0){
-                resolve(true);
-            }
-            else
-            {
-            resolve(false);
-            }
-        })
-        .catch(function(err){
-            resolve(false);
-        })
-    });
-};
-
 app.get('/', (req, res) => {
     res.send('Welcome to Movieapp-api');
 });
