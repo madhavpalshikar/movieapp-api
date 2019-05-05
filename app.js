@@ -47,42 +47,45 @@ app.use(session({
 }));
 
 let checkUserExists = (username) => {
-    users
-    .find({username: username})
-    .exec()
-    .then(rec => {
-        if(rec.length > 0){
-            return true;
-        }
-        else
-        {
-           return false;
-        }
-    })
-    .catch(function(err){
-        return false;
-    })
-}
+    return new Promise((resolve, reject) => {
+        users
+        .find({username: username})
+        .exec()
+        .then(rec => {
+            if(rec.length > 0){
+                resolve(true);
+            }
+            else
+            {
+            resolve(false);
+            }
+        })
+        .catch(function(err){
+            resolve(false);
+        })
+    });
+};
 
-let checkMovieExists = (movieID) => {
-    movies
-    .find({_id: movieID})
-    .exec()
-    .then(rec => {
-        if(rec.length > 0){
-            return true;
-        }
-        else
-        {
-           return false;
-        }
-    })
-    .catch(function(err){
-        return false;
-    })
-}
-
-
+let checkMovieExists = (movieID) => { 
+    
+    return new Promise((resolve, reject) => {
+        movies
+        .find({_id: movieID})
+        .exec()
+        .then(rec => {
+            if(rec.length > 0){
+                resolve(true);
+            }
+            else
+            {
+            resolve(false);
+            }
+        })
+        .catch(function(err){
+            resolve(false);
+        })
+    });
+};
 
 app.get('/', (req, res) => {
     res.send('Welcome to Movieapp-api');
@@ -350,48 +353,52 @@ app.post('/admin/assignMovie', (req, res) => {
         return;
     }
 
-    if(!checkUserExists(req.body.username)){
-        res.send(JSON.stringify({status:400, message: "User Not found"}));
-        return;
-    }
-    else if(!checkMovieExists(req.body.id)){
-        res.send(JSON.stringify({status:400, message: "Movie Not found"}));
-        return;
-    }
-
-    movies
-        .find({_id: req.body.id, users: req.body.username})
-        .exec()
-        .then(rec => {
-            if(rec.length > 0){
-                res.send(JSON.stringify({status: 200, message: 'This user has already assigned to this movies.'}));
-            }
-            else{
-                movies
-                .updateOne(
-                    { _id: req.body.id }, 
-                    { $push: { users: req.body.username } }
-                )
-                .then(data => {
+    Promise.all([checkUserExists(req.body.username), checkMovieExists(req.body.id)])
+    .then(res => {
+        if(res[0]===false){
+            res.send(JSON.stringify({status:400, message: "Wrong username"}));
+            return;
+        }
+        else if(res[1]===false){
+            res.send(JSON.stringify({status:400, message: "Wrong Movie ID"}));
+            return;
+        }
+        else{
+            movies
+            .find({_id: req.body.id, users: req.body.username})
+            .exec()
+            .then(rec => {
+                if(rec.length > 0){
+                    res.send(JSON.stringify({status: 200, message: 'This user has already assigned to this movies.'}));
+                }
+                else{
                     movies
-                        .find()
-                        .where('_id').equals(req.body.id)
-                        .exec()
-                        .then(record => {
-                            res.send(JSON.stringify({status: 200, data: record, message: 'User has been successfully assigned.'}));
-                        })
-                        .catch(function(err){
-                            res.send(JSON.stringify({status: 400, message: 'Error', error: err}));
-                        })
-                })
-                .catch(function(err){
-                    res.send(JSON.stringify({status: 400, message: 'Error', error: err}));
-                })
-            }
-        })
-        .catch(function(err){
-            res.send(JSON.stringify({status: 400, message: 'Error', error: err}));
-        })
+                    .updateOne(
+                        { _id: req.body.id }, 
+                        { $push: { users: req.body.username } }
+                    )
+                    .then(data => {
+                        movies
+                            .find()
+                            .where('_id').equals(req.body.id)
+                            .exec()
+                            .then(record => {
+                                res.send(JSON.stringify({status: 200, data: record, message: 'User has been successfully assigned.'}));
+                            })
+                            .catch(function(err){
+                                res.send(JSON.stringify({status: 400, message: 'Error', error: err}));
+                            })
+                    })
+                    .catch(function(err){
+                        res.send(JSON.stringify({status: 400, message: 'Error', error: err}));
+                    })
+                }
+            })
+            .catch(function(err){
+                res.send(JSON.stringify({status: 400, message: 'Error', error: err}));
+            })
+        }
+    });
 });
 
 app.post('/admin/unassignMovie', (req, res) => {
@@ -404,33 +411,38 @@ app.post('/admin/unassignMovie', (req, res) => {
         return;
     }
     
-    if(!checkUserExists(req.body.username)){
-        res.send(JSON.stringify({status:400, message: "User Not found"}));
-        return;
-    }
-    else if(!checkMovieExists(req.body.id)){
-        res.send(JSON.stringify({status:400, message: "Movie Not found"}));
-        return;
-    }
-
-    movies
-        .find({_id: req.body.id, users: req.body.username})
-        .exec()
-        .then(rec => {
-            if(rec.length > 0){
-                movies
-                    .updateOne( {_id: req.body.id}, { $pull: {users: req.body.username } } )
-                    .then(record => {
-                        res.send(JSON.stringify({status: 200, message: 'User has been successfully unassigned.', data: record}));
-                    })
-                    .catch(function(err){
-                        res.send(JSON.stringify({status: 400, message: 'Error', error: err}));
-                    })
-                }
-            else{
-                res.send(JSON.stringify({status: 400, message: 'User is not present in the movie access list'}));
-            }
-        })
+    Promise.all([checkUserExists(req.body.username), checkMovieExists(req.body.id)])
+    .then(res => {
+        if(res[0]===false){
+            res.send(JSON.stringify({status:400, message: "Wrong username"}));
+            return;
+        }
+        else if(res[1]===false){
+            res.send(JSON.stringify({status:400, message: "Wrong Movie ID"}));
+            return;
+        }
+        else{
+            movies
+                .find({_id: req.body.id, users: req.body.username})
+                .exec()
+                .then(rec => {
+                    if(rec.length > 0){
+                        movies
+                            .updateOne( {_id: req.body.id}, { $pull: {users: req.body.username } } )
+                            .then(record => {
+                                res.send(JSON.stringify({status: 200, message: 'User has been successfully unassigned.', data: record}));
+                            })
+                            .catch(function(err){
+                                res.send(JSON.stringify({status: 400, message: 'Error', error: err}));
+                            })
+                        }
+                    else{
+                        res.send(JSON.stringify({status: 400, message: 'User is not present in the movie access list'}));
+                    }
+                })
+        }
+        
+    });
 });
 
 app.post('/admin/allUsers', (req, res) => {
